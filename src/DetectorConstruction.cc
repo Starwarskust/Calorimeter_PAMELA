@@ -25,7 +25,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4Material *world_mat = nist->FindOrBuildMaterial("G4_N");
   G4LogicalVolume *world_log = new G4LogicalVolume(world_solid, world_mat, "world_log");
 
-  G4VPhysicalVolume *world_phys = 
+  G4VPhysicalVolume *world_phys =
     new G4PVPlacement(0,                  // no rotation
                       G4ThreeVector(),    // at its position
                       world_log,          // its logical volume
