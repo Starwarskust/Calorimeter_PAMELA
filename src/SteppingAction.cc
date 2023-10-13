@@ -8,6 +8,16 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step *step)
 {
+  if (step->GetTrack()->GetTrackID() == 1 && step->GetTrack()->GetTrackStatus() == fStopAndKill) {
+    analysisManager->FillNtupleDColumn(1, 5, step->GetPostStepPoint()->GetPosition().z());
+    if (step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessType() != fGeneral) { // NoProcess
+      analysisManager->FillNtupleSColumn(1, 6, step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName());
+    } else {
+      analysisManager->FillNtupleSColumn(1, 6, step->GetPreStepPoint()->GetProcessDefinedStep()->GetProcessName());
+    }
+    analysisManager->AddNtupleRow(1);
+  }
+
   if (step->GetTrack()->GetParticleDefinition()->GetPDGCharge() != 0 &&
       (step->GetTrack()->GetTrackID() == 1 || step->GetTrack()->GetParentID() == 1)) {
     analysisManager->FillNtupleIColumn(2, 0, step->GetTrack()->GetTrackID());
@@ -24,10 +34,5 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
       analysisManager->FillNtupleDColumn(2, 4, step->GetPostStepPoint()->GetPosition().z());
       analysisManager->AddNtupleRow(2);
     }
-  }
-
-  if (step->GetTrack()->GetTrackID() == 1 && step->GetTrack()->GetTrackStatus() == fStopAndKill) {
-    // ЭТО ТОЧКА ГИБЕЛИ ПЕРВИЧНОЙ ЧАСТИЦЫ, НУЖНА ИНФА ПО ТОЧКЕ СМЕРТИ И ПРОЦЕССЕ СМЕРТИ
-    // "Process name: " << step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName() << "\n"
   }
 }

@@ -5,6 +5,8 @@
 #include "G4Step.hh"
 #include "G4AnalysisManager.hh"
 
+#include "G4VProcess.hh"
+
 class SteppingAction : public G4UserSteppingAction
 {
   public:

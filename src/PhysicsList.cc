@@ -9,10 +9,10 @@ PhysicsList::PhysicsList()
 PhysicsList::~PhysicsList()
 {}
 
-void PhysicsList::SetCuts()
-{
-  SetCutValue(1*mm, "proton");
-  SetCutValue(1*mm, "e-");
-  SetCutValue(1*mm, "e+");
-  SetCutValue(1*mm, "gamma");      
-}
+// void PhysicsList::SetCuts()
+// {
+//   SetCutValue(1*mm, "proton");
+//   SetCutValue(1*mm, "e-");
+//   SetCutValue(1*mm, "e+");
+//   SetCutValue(1*mm, "gamma");
+// }

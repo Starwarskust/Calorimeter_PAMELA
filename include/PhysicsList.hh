@@ -11,7 +11,7 @@ class PhysicsList : public FTFP_BERT
   public:
     PhysicsList();
     ~PhysicsList();
-    virtual void SetCuts() override;
+    // virtual void SetCuts() override;
 };
 
 #endif

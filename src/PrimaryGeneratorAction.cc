@@ -1,15 +1,12 @@
 ﻿#include "PrimaryGeneratorAction.hh"
 
-PrimaryGeneratorAction::PrimaryGeneratorAction(G4int particlePDG, G4double energy)
+PrimaryGeneratorAction::PrimaryGeneratorAction(G4int particlePDG, G4double energyMin, G4double energyMax)
 : fParticleGun(0),
   fParticlePDG(particlePDG),
-  fEnergy(energy)
+  fEnergyMin(energyMin),
+  fEnergyMax(energyMax)
 {
-  auto seed = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-  CLHEP::HepRandom::setTheSeed(seed);
-
-  G4int n_particle = 1;
-  fParticleGun = new G4ParticleGun(n_particle);
+  fParticleGun = new G4ParticleGun();
 }
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
@@ -27,7 +24,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
   else
     std::cerr << "Error: particle was not found in G4ParticleTable and G4IonTable" << std::endl;
 
-  G4double Ekin = CLHEP::RandFlat::shoot(80., 360.); // MeV
+  G4double Ekin = CLHEP::RandFlat::shoot(fEnergyMin, fEnergyMax); // MeV
   G4double X = CLHEP::RandFlat::shoot(-10., 10.); // mm
   G4double Y = CLHEP::RandFlat::shoot(-10., 10.); // mm
   G4double theta = asin(CLHEP::RandFlat::shoot());

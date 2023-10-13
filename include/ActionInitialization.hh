@@ -10,13 +10,15 @@
 class ActionInitialization : public G4VUserActionInitialization
 {
   public:
-    ActionInitialization(G4int particlePDG, G4double energy);
+    ActionInitialization(G4int particlePDG, G4double energyMin, G4double energyMax, G4int runNumber);
     ~ActionInitialization();
     virtual void Build() const override;
 
   private:
     G4int fParticlePDG;
-    G4double fEnergy;
+    G4double fEnergyMin;
+    G4double fEnergyMax;
+    G4int fRunNumber;
 };
 
 #endif

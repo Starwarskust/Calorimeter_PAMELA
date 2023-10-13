@@ -1,6 +1,7 @@
 #include "RunAction.hh"
 
-RunAction::RunAction()
+RunAction::RunAction(G4int runNumber)
+: fRunNumber(runNumber)
 {}
 
 RunAction::~RunAction()
@@ -22,6 +23,8 @@ void RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->CreateNtupleDColumn("Y");
   analysisManager->CreateNtupleDColumn("theta");
   analysisManager->CreateNtupleDColumn("phi");
+  analysisManager->CreateNtupleDColumn("Z_end");
+  analysisManager->CreateNtupleSColumn("LastProcess");
   analysisManager->FinishNtuple();
 
   analysisManager->CreateNtuple("Ntuple3", "Tracks");
