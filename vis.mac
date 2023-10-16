@@ -10,16 +10,26 @@
 
 # Specify view angle and zoom
 /vis/viewer/set/upVector 0 0 1
-/vis/viewer/set/viewpointThetaPhi 80 20
-# /vis/viewer/centreOn World
+/vis/viewer/set/viewpointThetaPhi 70 30
 /vis/viewer/zoom 1.5
+# /vis/viewer/set/viewpointThetaPhi 90 0
+# /vis/viewer/zoom 20
+/vis/viewer/set/projection perspective 20 deg
+/vis/viewer/centreOn CAAB_phys 0
 
 # Axes, eventID
 /vis/scene/add/axes 18 18 0 10 cm
 /vis/scene/add/eventID
 
-# Make the "World" box invisible
-# /vis/geometry/set/visibility World 0 false
+# Visible and color settings
+/vis/geometry/set/visibility world_log 0 false
+/vis/geometry/set/forceSolid CAAB_log
+/vis/geometry/set/forceSolid G10C_log
+/vis/geometry/set/lineWidth CAST_log 0 3
+
+/vis/geometry/set/colour CAAB_log 0 0.59 0.29 0   1
+/vis/geometry/set/colour G10C_log 0 0    0    0.5 1
+/vis/geometry/set/colour CAST_log 0 0.66 0    0   1
 
 # /vis/filtering/trajectories/create/particleFilter
 # /vis/filtering/trajectories/particleFilter-0/add gamma

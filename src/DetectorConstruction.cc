@@ -37,24 +37,24 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   //--------------------------------------- ToFS3 --------------------------------------------------
 
-  G4double ToFS3_sizeXY = 246*mm;
-  G4double ToFS3_sizeZ  =  14*mm;
-  G4Box *ToFS3_solid = new G4Box("ToFS3_solid", ToFS3_sizeXY/2., ToFS3_sizeXY/2., ToFS3_sizeZ/2.);
+  // G4double ToFS3_sizeXY = 246*mm;
+  // G4double ToFS3_sizeZ  =  14*mm;
+  // G4Box *ToFS3_solid = new G4Box("ToFS3_solid", ToFS3_sizeXY/2., ToFS3_sizeXY/2., ToFS3_sizeZ/2.);
 
-  G4Material *ToFS3_mat = new G4Material("C10H11", density = 1.032*g/cm3, nElem = 2);
-  ToFS3_mat->AddElement(nist->FindOrBuildElement("H"), nAtom = 11);
-  ToFS3_mat->AddElement(nist->FindOrBuildElement("C"), nAtom = 10);
-  G4LogicalVolume *ToFS3_log = new G4LogicalVolume(ToFS3_solid, ToFS3_mat, "ToFS3_log");
+  // G4Material *ToFS3_mat = new G4Material("C10H11", density = 1.032*g/cm3, nElem = 2);
+  // ToFS3_mat->AddElement(nist->FindOrBuildElement("H"), nAtom = 11);
+  // ToFS3_mat->AddElement(nist->FindOrBuildElement("C"), nAtom = 10);
+  // G4LogicalVolume *ToFS3_log = new G4LogicalVolume(ToFS3_solid, ToFS3_mat, "ToFS3_log");
 
-  G4ThreeVector ToFS3_position = G4ThreeVector(0., 0., -7*mm);
-  new G4PVPlacement(0,                 // no rotation
-                    ToFS3_position,    // at its position
-                    ToFS3_log,         // its logical volume
-                    "ToFS3_phys",      // its name
-                    world_log,         // its mother  volume
-                    false,             // no boolean operation
-                    0,                 // copy number
-                    checkOverlaps);    // overlaps checking
+  // G4ThreeVector ToFS3_position = G4ThreeVector(0., 0., -7*mm);
+  // new G4PVPlacement(0,                 // no rotation
+  //                   ToFS3_position,    // at its position
+  //                   ToFS3_log,         // its logical volume
+  //                   "ToFS3_phys",      // its name
+  //                   world_log,         // its mother  volume
+  //                   false,             // no boolean operation
+  //                   0,                 // copy number
+  //                   checkOverlaps);    // overlaps checking
 
   //---------------------------------------- CAST --------------------------------------------------
 
