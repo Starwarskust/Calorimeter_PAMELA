@@ -4,9 +4,9 @@
 #include "PhysicsList.hh"
 #include "ActionInitialization.hh"
 
-// #include "G4UImanager.hh"
-// #include "G4UIExecutive.hh"
-// #include "G4VisExecutive.hh"
+#include "G4UImanager.hh"
+#include "G4UIExecutive.hh"
+#include "G4VisExecutive.hh"
 
 int main(int argc, char *argv[])
 {
@@ -40,17 +40,17 @@ int main(int argc, char *argv[])
   runManager->Initialize();
 
   // Get the pointer to the User Interface manager
-  // G4UImanager *UImanager = G4UImanager::GetUIpointer();
+  G4UImanager *UImanager = G4UImanager::GetUIpointer();
   // UImanager->ApplyCommand("/tracking/verbose 0");
-  // G4VisManager *visManager = new G4VisExecutive();
-  // visManager->Initialize();
-  // G4UIExecutive *UI = new G4UIExecutive(argc, argv);
-  // UImanager->ApplyCommand("/control/execute vis.mac");
-  // UI->SessionStart();
-  // delete UI;
+  G4VisManager *visManager = new G4VisExecutive();
+  visManager->Initialize();
+  G4UIExecutive *UI = new G4UIExecutive(argc, argv);
+  UImanager->ApplyCommand("/control/execute vis.mac");
+  UI->SessionStart();
+  delete UI;
 
   // Run 1 particle
-  runManager->BeamOn(numberOfEvents);
+  // runManager->BeamOn(numberOfEvents);
 
   // Job termination
   delete runManager;
