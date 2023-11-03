@@ -4,9 +4,11 @@
 #include "PhysicsList.hh"
 #include "ActionInitialization.hh"
 
-// #include "G4UImanager.hh"
-// #include "G4UIExecutive.hh"
-// #include "G4VisExecutive.hh"
+#ifdef USE_VISUALIZATION
+  #include "G4UImanager.hh"
+  #include "G4UIExecutive.hh"
+  #include "G4VisExecutive.hh"
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -39,18 +41,19 @@ int main(int argc, char *argv[])
   runManager->SetUserInitialization(new ActionInitialization(particlePDG, energyMin, energyMax, runNumber));
   runManager->Initialize();
 
-  // Get the pointer to the User Interface manager
-  // G4UImanager *UImanager = G4UImanager::GetUIpointer();
-  // UImanager->ApplyCommand("/tracking/verbose 0");
-  // G4VisManager *visManager = new G4VisExecutive();
-  // visManager->Initialize();
-  // G4UIExecutive *UI = new G4UIExecutive(argc, argv);
-  // UImanager->ApplyCommand("/control/execute vis.mac");
-  // UI->SessionStart();
-  // delete UI;
-
-  // Run 1 particle
-  runManager->BeamOn(numberOfEvents);
+  #ifdef USE_VISUALIZATION
+    // Get the pointer to the User Interface manager
+    G4UImanager *UImanager = G4UImanager::GetUIpointer();
+    G4VisManager *visManager = new G4VisExecutive();
+    visManager->Initialize();
+    G4UIExecutive *UI = new G4UIExecutive(argc, argv);
+    UImanager->ApplyCommand("/control/execute vis.mac");
+    UI->SessionStart();
+    delete UI;
+  #else
+    // Run 1 particle
+    runManager->BeamOn(numberOfEvents);
+  #endif
 
   // Job termination
   delete runManager;
