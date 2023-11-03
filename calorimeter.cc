@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   G4double energyMin = atoi(argv[2]); // MeV
   G4double energyMax = atoi(argv[3]); // MeV
   G4int runNumber = atoi(argv[4]); // run number
-  G4int numberOfEvents = atoi(argv[3]); // number of events
+  G4int numberOfEvents = atoi(argv[5]); // number of events
   G4long seed = atoi(argv[6]); // seed
   G4cout << "Input particlePDG: " << particlePDG << "\n"
          << "Input energyMin: " << energyMin << " MeV" << "\n"
