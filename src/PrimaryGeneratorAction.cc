@@ -36,7 +36,6 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
   analysisManager->FillNtupleDColumn(1, 2, Y);
   analysisManager->FillNtupleDColumn(1, 3, theta);
   analysisManager->FillNtupleDColumn(1, 4, phi);
-  analysisManager->AddNtupleRow(1);
 
   fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticleEnergy(Ekin*MeV);
