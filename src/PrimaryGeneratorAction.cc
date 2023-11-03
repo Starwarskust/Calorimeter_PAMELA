@@ -25,8 +25,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
     std::cerr << "Error: particle was not found in G4ParticleTable and G4IonTable" << std::endl;
 
   G4double Ekin = CLHEP::RandFlat::shoot(fEnergyMin, fEnergyMax); // MeV
-  G4double X = CLHEP::RandFlat::shoot(-10., 10.); // mm
-  G4double Y = CLHEP::RandFlat::shoot(-10., 10.); // mm
+  G4double X = CLHEP::RandFlat::shoot(-120., 120.); // mm
+  G4double Y = CLHEP::RandFlat::shoot(-120., 120.); // mm
   G4double theta = asin(CLHEP::RandFlat::shoot());
   G4double phi = CLHEP::RandFlat::shoot(CLHEP::twopi);
 
