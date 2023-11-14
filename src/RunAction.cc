@@ -33,6 +33,7 @@ void RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->CreateNtupleDColumn("X");
   analysisManager->CreateNtupleDColumn("Y");
   analysisManager->CreateNtupleDColumn("Z");
+  analysisManager->CreateNtupleDColumn("E");
   analysisManager->FinishNtuple();
 }
 
