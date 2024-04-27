@@ -39,7 +39,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
 
   fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticleEnergy(Ekin*MeV);
-  fParticleGun->SetParticlePosition(G4ThreeVector(X*mm, Y*mm, 0.));
+  fParticleGun->SetParticlePosition(G4ThreeVector(X*mm, Y*mm, -1.*mm));
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta) * cos(phi),
                                                            sin(theta) * sin(phi),
                                                            cos(theta)));

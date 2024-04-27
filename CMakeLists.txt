@@ -17,6 +17,7 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 option(USE_VISUALIZATION "Use visualization code" OFF)
 if (USE_VISUALIZATION)
   add_definitions(-DUSE_VISUALIZATION)
+  file(COPY ${PROJECT_SOURCE_DIR}/vis.mac DESTINATION ${PROJECT_BINARY_DIR})
 endif()
 
 # Add the executable, and link it to the Geant4 libraries

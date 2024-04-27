@@ -11,6 +11,10 @@
 #include "G4Box.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
+#include "G4PVReplica.hh"
+
+#include "G4VisAttributes.hh"
+#include "G4Colour.hh"
 
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -21,7 +25,7 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     virtual void ConstructSDandField() override;
 
   private:
-    G4LogicalVolume *CAST_log;
+    G4LogicalVolume *pad_lvol;
 };
 
 #endif
