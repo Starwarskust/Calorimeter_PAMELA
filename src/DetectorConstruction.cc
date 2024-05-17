@@ -245,6 +245,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4Material *paddle_mat = nist->FindOrBuildMaterial("G4_Si");
   G4LogicalVolume *paddle_lvol = new G4LogicalVolume(paddle_svol, paddle_mat, "paddle");
 
+  G4int ind = 0;
   for (G4int iy = -1; iy <= 1; iy++) {
     for (G4int ix = -1; ix <= 1; ix++) {
       G4ThreeVector paddle_position = G4ThreeVector(ix * (strip_lenght + 2.42*mm),
@@ -255,8 +256,9 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
                         "paddle",                       // name
                         plane_lvol,                     // mother volume
                         false,                          // no boolean operation
-                        2 + ix + iy,                    // copy number
+                        ind,                            // copy number
                         check_overlaps);                // overlaps checking
+      ind++;
     }
   }
 
