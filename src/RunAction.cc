@@ -4,6 +4,36 @@ RunAction::RunAction(G4int runNumber)
 : fRunNumber(runNumber)
 {
   G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+
+  analysisManager->CreateNtuple("energy_release", "Energy release in sensitive volumes");
+  analysisManager->CreateNtupleIColumn("event_id");
+  analysisManager->CreateNtupleIColumn("n_layer");
+  analysisManager->CreateNtupleIColumn("n_plane");
+  analysisManager->CreateNtupleIColumn("n_paddle");
+  analysisManager->CreateNtupleIColumn("n_strip");
+  analysisManager->CreateNtupleIColumn("n_pad");
+  analysisManager->CreateNtupleDColumn("energy_deposit");
+  analysisManager->FinishNtuple();
+
+  analysisManager->CreateNtuple("primary_info", "Parameters of the primary particle");
+  analysisManager->CreateNtupleDColumn("energy");
+  analysisManager->CreateNtupleDColumn("x");
+  analysisManager->CreateNtupleDColumn("y");
+  analysisManager->CreateNtupleDColumn("theta");
+  analysisManager->CreateNtupleDColumn("phi");
+  analysisManager->CreateNtupleDColumn("z_end");
+  analysisManager->CreateNtupleSColumn("last_process");
+  analysisManager->FinishNtuple();
+
+  analysisManager->CreateNtuple("track_info", "Tracks of all particles");
+  analysisManager->CreateNtupleIColumn("track_id");
+  analysisManager->CreateNtupleIColumn("pdg_code");
+  analysisManager->CreateNtupleDColumn("x");
+  analysisManager->CreateNtupleDColumn("y");
+  analysisManager->CreateNtupleDColumn("z");
+  analysisManager->CreateNtupleDColumn("energy");
+  analysisManager->CreateNtupleDColumn("energy_deposit");
+  analysisManager->FinishNtuple();
 }
 
 RunAction::~RunAction()
@@ -12,37 +42,9 @@ RunAction::~RunAction()
 void RunAction::BeginOfRunAction(const G4Run*)
 {
   G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-  std::string filename = "../data/output_" + std::to_string(fRunNumber) + ".csv";
+  std::string filename = "../data/output_" + std::to_string(fRunNumber) + ".hdf5";
+  analysisManager->SetFileName(filename);
   analysisManager->OpenFile(filename);
-
-  analysisManager->CreateNtuple("Ntuple1", "Energy release");
-  analysisManager->CreateNtupleIColumn("EventID");
-  analysisManager->CreateNtupleIColumn("N_layer");
-  analysisManager->CreateNtupleIColumn("N_plane");
-  analysisManager->CreateNtupleIColumn("N_paddle");
-  analysisManager->CreateNtupleIColumn("N_strip");
-  analysisManager->CreateNtupleIColumn("N_pad");
-  analysisManager->CreateNtupleDColumn("energy_desopit");
-  analysisManager->FinishNtuple();
-
-  analysisManager->CreateNtuple("Ntuple2", "Initial parameters");
-  analysisManager->CreateNtupleDColumn("Ekin");
-  analysisManager->CreateNtupleDColumn("X");
-  analysisManager->CreateNtupleDColumn("Y");
-  analysisManager->CreateNtupleDColumn("theta");
-  analysisManager->CreateNtupleDColumn("phi");
-  analysisManager->CreateNtupleDColumn("Z_end");
-  analysisManager->CreateNtupleSColumn("LastProcess");
-  analysisManager->FinishNtuple();
-
-  analysisManager->CreateNtuple("Ntuple3", "Tracks");
-  analysisManager->CreateNtupleIColumn("TrackID");
-  analysisManager->CreateNtupleIColumn("ParticlePDG");
-  analysisManager->CreateNtupleDColumn("X");
-  analysisManager->CreateNtupleDColumn("Y");
-  analysisManager->CreateNtupleDColumn("Z");
-  analysisManager->CreateNtupleDColumn("E");
-  analysisManager->FinishNtuple();
 }
 
 void RunAction::EndOfRunAction(const G4Run*)
