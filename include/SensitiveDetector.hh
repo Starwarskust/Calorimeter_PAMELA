@@ -4,6 +4,8 @@
 #include "G4VSensitiveDetector.hh"
 #include "G4AnalysisManager.hh"
 
+#include "G4EventManager.hh"
+
 class SensitiveDetector : public G4VSensitiveDetector
 {
   public:
@@ -14,7 +16,6 @@ class SensitiveDetector : public G4VSensitiveDetector
 
   private:
     G4AnalysisManager *fAnalysisManager = G4AnalysisManager::Instance();
-    G4int fEventID;
 };
 
 #endif

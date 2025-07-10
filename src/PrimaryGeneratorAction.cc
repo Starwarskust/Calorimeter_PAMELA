@@ -31,11 +31,12 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
   G4double phi = CLHEP::RandFlat::shoot(CLHEP::twopi);
 
   G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-  analysisManager->FillNtupleDColumn(1, 0, Ekin);
-  analysisManager->FillNtupleDColumn(1, 1, X);
-  analysisManager->FillNtupleDColumn(1, 2, Y);
-  analysisManager->FillNtupleDColumn(1, 3, theta);
-  analysisManager->FillNtupleDColumn(1, 4, phi);
+  analysisManager->FillNtupleIColumn(1, 0, anEvent->GetEventID());
+  analysisManager->FillNtupleDColumn(1, 1, Ekin);
+  analysisManager->FillNtupleDColumn(1, 2, X);
+  analysisManager->FillNtupleDColumn(1, 3, Y);
+  analysisManager->FillNtupleDColumn(1, 4, theta);
+  analysisManager->FillNtupleDColumn(1, 5, phi);
 
   fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticleEnergy(Ekin*MeV);

@@ -5,6 +5,7 @@
 #include "G4Step.hh"
 #include "G4AnalysisManager.hh"
 
+#include "G4EventManager.hh"
 #include "G4VProcess.hh"
 
 class SteppingAction : public G4UserSteppingAction
@@ -15,7 +16,7 @@ class SteppingAction : public G4UserSteppingAction
     void UserSteppingAction(const G4Step *step) override;
 
   private:
-    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+    G4AnalysisManager *fAnalysisManager = G4AnalysisManager::Instance();
 };
 
 #endif

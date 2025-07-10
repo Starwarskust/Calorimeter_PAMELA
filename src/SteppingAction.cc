@@ -9,34 +9,37 @@ SteppingAction::~SteppingAction()
 void SteppingAction::UserSteppingAction(const G4Step *step)
 {
   if (step->GetTrack()->GetTrackID() == 1 && step->GetTrack()->GetTrackStatus() == fStopAndKill) {
-    analysisManager->FillNtupleDColumn(1, 5, step->GetPostStepPoint()->GetPosition().z());
+    fAnalysisManager->FillNtupleDColumn(1, 6, step->GetPostStepPoint()->GetPosition().z());
     if (step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessType() != fGeneral) { // NoProcess
-      analysisManager->FillNtupleSColumn(1, 6, step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName());
+      fAnalysisManager->FillNtupleSColumn(1, 7, step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName());
     } else {
-      analysisManager->FillNtupleSColumn(1, 6, step->GetPreStepPoint()->GetProcessDefinedStep()->GetProcessName());
+      fAnalysisManager->FillNtupleSColumn(1, 7, step->GetPreStepPoint()->GetProcessDefinedStep()->GetProcessName());
     }
-    analysisManager->AddNtupleRow(1);
+    fAnalysisManager->AddNtupleRow(1);
   }
 
   if (step->GetTrack()->GetParticleDefinition()->GetPDGCharge() != 0 &&
       (step->GetTrack()->GetTrackID() == 1 || step->GetTrack()->GetParentID() == 1)) {
-    analysisManager->FillNtupleIColumn(2, 0, step->GetTrack()->GetTrackID());
-    analysisManager->FillNtupleIColumn(2, 1, step->GetTrack()->GetParticleDefinition()->GetPDGEncoding());
-    analysisManager->FillNtupleDColumn(2, 2, step->GetPreStepPoint()->GetPosition().x());
-    analysisManager->FillNtupleDColumn(2, 3, step->GetPreStepPoint()->GetPosition().y());
-    analysisManager->FillNtupleDColumn(2, 4, step->GetPreStepPoint()->GetPosition().z());
-    analysisManager->FillNtupleDColumn(2, 5, step->GetPreStepPoint()->GetKineticEnergy());
-    analysisManager->FillNtupleDColumn(2, 6, step->GetTotalEnergyDeposit());
-    analysisManager->AddNtupleRow(2);
+    G4int eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
+    fAnalysisManager->FillNtupleIColumn(2, 0, eventID);
+    fAnalysisManager->FillNtupleIColumn(2, 1, step->GetTrack()->GetTrackID());
+    fAnalysisManager->FillNtupleIColumn(2, 2, step->GetTrack()->GetParticleDefinition()->GetPDGEncoding());
+    fAnalysisManager->FillNtupleDColumn(2, 3, step->GetPreStepPoint()->GetPosition().x());
+    fAnalysisManager->FillNtupleDColumn(2, 4, step->GetPreStepPoint()->GetPosition().y());
+    fAnalysisManager->FillNtupleDColumn(2, 5, step->GetPreStepPoint()->GetPosition().z());
+    fAnalysisManager->FillNtupleDColumn(2, 6, step->GetPreStepPoint()->GetKineticEnergy());
+    fAnalysisManager->FillNtupleDColumn(2, 7, step->GetTotalEnergyDeposit());
+    fAnalysisManager->AddNtupleRow(2);
     if (step->GetTrack()->GetTrackStatus() == fStopAndKill) {
-      analysisManager->FillNtupleIColumn(2, 0, step->GetTrack()->GetTrackID());
-      analysisManager->FillNtupleIColumn(2, 1, step->GetTrack()->GetParticleDefinition()->GetPDGEncoding());
-      analysisManager->FillNtupleDColumn(2, 2, step->GetPostStepPoint()->GetPosition().x());
-      analysisManager->FillNtupleDColumn(2, 3, step->GetPostStepPoint()->GetPosition().y());
-      analysisManager->FillNtupleDColumn(2, 4, step->GetPostStepPoint()->GetPosition().z());
-      analysisManager->FillNtupleDColumn(2, 5, step->GetPostStepPoint()->GetKineticEnergy());
-      analysisManager->FillNtupleDColumn(2, 6, step->GetTotalEnergyDeposit());
-      analysisManager->AddNtupleRow(2);
+      fAnalysisManager->FillNtupleIColumn(2, 0, eventID);
+      fAnalysisManager->FillNtupleIColumn(2, 1, step->GetTrack()->GetTrackID());
+      fAnalysisManager->FillNtupleIColumn(2, 2, step->GetTrack()->GetParticleDefinition()->GetPDGEncoding());
+      fAnalysisManager->FillNtupleDColumn(2, 3, step->GetPostStepPoint()->GetPosition().x());
+      fAnalysisManager->FillNtupleDColumn(2, 4, step->GetPostStepPoint()->GetPosition().y());
+      fAnalysisManager->FillNtupleDColumn(2, 5, step->GetPostStepPoint()->GetPosition().z());
+      fAnalysisManager->FillNtupleDColumn(2, 6, step->GetPostStepPoint()->GetKineticEnergy());
+      fAnalysisManager->FillNtupleDColumn(2, 7, step->GetTotalEnergyDeposit());
+      fAnalysisManager->AddNtupleRow(2);
     }
   }
 }

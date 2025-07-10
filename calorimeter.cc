@@ -1,4 +1,4 @@
-﻿#include "G4RunManager.hh"
+﻿#include "G4MTRunManager.hh"
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
@@ -35,7 +35,8 @@ int main(int argc, char *argv[])
   CLHEP::HepRandom::setTheSeed(seed + runNumber);
 
   // Construct RunManager and initialize G4 kernel
-  G4RunManager *runManager = new G4RunManager();
+  G4MTRunManager *runManager = new G4MTRunManager();
+  runManager->SetNumberOfThreads(G4Threading::G4GetNumberOfCores());
   runManager->SetUserInitialization(new DetectorConstruction());
   runManager->SetUserInitialization(new PhysicsList());
   runManager->SetUserInitialization(new ActionInitialization(particlePDG, energyMin, energyMax, runNumber));

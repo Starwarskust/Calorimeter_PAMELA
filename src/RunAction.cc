@@ -16,6 +16,7 @@ RunAction::RunAction(G4int runNumber)
   analysisManager->FinishNtuple();
 
   analysisManager->CreateNtuple("primary_info", "Parameters of the primary particle");
+  analysisManager->CreateNtupleIColumn("event_id");
   analysisManager->CreateNtupleDColumn("energy");
   analysisManager->CreateNtupleDColumn("x");
   analysisManager->CreateNtupleDColumn("y");
@@ -26,6 +27,7 @@ RunAction::RunAction(G4int runNumber)
   analysisManager->FinishNtuple();
 
   analysisManager->CreateNtuple("track_info", "Tracks of all particles");
+  analysisManager->CreateNtupleIColumn("event_id");
   analysisManager->CreateNtupleIColumn("track_id");
   analysisManager->CreateNtupleIColumn("pdg_code");
   analysisManager->CreateNtupleDColumn("x");
