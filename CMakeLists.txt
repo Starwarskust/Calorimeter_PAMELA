@@ -1,5 +1,5 @@
 # Setup the project
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 project(Calorimeter_PAMELA)
 
 # Find Geant4 package, activating all available UI and Vis drivers by default

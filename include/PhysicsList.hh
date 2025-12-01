@@ -1,17 +1,14 @@
-#ifndef PhysicsList_hh
-#define PhysicsList_hh
+#pragma once
 
-#include "FTFP_BERT.hh"
+#include <FTFP_BERT.hh>
 
-#include "G4SystemOfUnits.hh"
-#include "G4RadioactiveDecayPhysics.hh"
+#include <G4RadioactiveDecayPhysics.hh>
+// #include <G4SystemOfUnits.hh>
 
 class PhysicsList : public FTFP_BERT
 {
   public:
     PhysicsList();
     ~PhysicsList();
-    // virtual void SetCuts() override;
+    // void SetCuts() override;
 };
-
-#endif

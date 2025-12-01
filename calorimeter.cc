@@ -1,13 +1,13 @@
-﻿#include "G4MTRunManager.hh"
+﻿#include <G4MTRunManager.hh>
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
 #include "ActionInitialization.hh"
 
 #ifdef USE_VISUALIZATION
-  #include "G4UImanager.hh"
-  #include "G4UIExecutive.hh"
-  #include "G4VisExecutive.hh"
+  #include <G4UImanager.hh>
+  #include <G4UIExecutive.hh>
+  #include <G4VisExecutive.hh>
 #endif
 
 int main(int argc, char *argv[])

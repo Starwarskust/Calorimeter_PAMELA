@@ -1,7 +1,6 @@
-#ifndef ActionInitialization_hh
-#define ActionInitialization_hh
+#pragma once
 
-#include "G4VUserActionInitialization.hh"
+#include <G4VUserActionInitialization.hh>
 
 #include "PrimaryGeneratorAction.hh"
 #include "RunAction.hh"
@@ -12,7 +11,7 @@ class ActionInitialization : public G4VUserActionInitialization
   public:
     ActionInitialization(G4int particlePDG, G4double energyMin, G4double energyMax, G4int runNumber);
     ~ActionInitialization();
-    virtual void Build() const override;
+    void Build() const override;
 
   private:
     G4int fParticlePDG;
@@ -20,5 +19,3 @@ class ActionInitialization : public G4VUserActionInitialization
     G4double fEnergyMax;
     G4int fRunNumber;
 };
-
-#endif
