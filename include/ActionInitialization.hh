@@ -1,21 +1,16 @@
 #pragma once
 
 #include <G4VUserActionInitialization.hh>
-
-#include "PrimaryGeneratorAction.hh"
-#include "RunAction.hh"
-#include "SteppingAction.hh"
+#include "SimConfig.hh"
 
 class ActionInitialization : public G4VUserActionInitialization
 {
   public:
-    ActionInitialization(G4int particlePDG, G4double energyMin, G4double energyMax, G4int runNumber);
-    ~ActionInitialization();
+    ActionInitialization(const SimConfig& config);
+    ~ActionInitialization() override = default;
+    void BuildForMaster() const override;
     void Build() const override;
 
   private:
-    G4int fParticlePDG;
-    G4double fEnergyMin;
-    G4double fEnergyMax;
-    G4int fRunNumber;
+    const SimConfig& fConfig;
 };

@@ -1,12 +1,25 @@
 ﻿#include "PrimaryGeneratorAction.hh"
 
-PrimaryGeneratorAction::PrimaryGeneratorAction(G4int particlePDG, G4double energyMin, G4double energyMax)
-: fParticleGun(0),
-  fParticlePDG(particlePDG),
-  fEnergyMin(energyMin),
-  fEnergyMax(energyMax)
+#include <G4SystemOfUnits.hh>
+#include <G4ParticleTable.hh>
+#include <G4IonTable.hh>
+#include <G4ParticleDefinition.hh>
+#include <G4AnalysisManager.hh>
+#include <Randomize.hh>
+
+PrimaryGeneratorAction::PrimaryGeneratorAction(const SimConfig& config)
+: fConfig(config)
 {
   fParticleGun = new G4ParticleGun();
+
+  G4ParticleDefinition* particle = nullptr;
+  if (G4ParticleTable::GetParticleTable()->FindParticle(fConfig.particlePDG))
+    particle = G4ParticleTable::GetParticleTable()->FindParticle(fConfig.particlePDG);
+  else if (G4IonTable::GetIonTable()->GetIon(fConfig.particlePDG))
+    particle = G4IonTable::GetIonTable()->GetIon(fConfig.particlePDG);
+  else
+    G4cerr << "Error: particle was not found in G4ParticleTable and G4IonTable" << G4endl;
+  fParticleGun->SetParticleDefinition(particle);
 }
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
@@ -14,23 +27,15 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
   delete fParticleGun;
 }
 
-void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
+void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-  G4ParticleDefinition *particle = 0;
-  if (G4ParticleTable::GetParticleTable()->FindParticle(fParticlePDG))
-    particle = G4ParticleTable::GetParticleTable()->FindParticle(fParticlePDG);
-  else if (G4IonTable::GetIonTable()->GetIon(fParticlePDG))
-    particle = G4IonTable::GetIonTable()->GetIon(fParticlePDG);
-  else
-    std::cerr << "Error: particle was not found in G4ParticleTable and G4IonTable" << std::endl;
-
-  G4double Ekin = CLHEP::RandFlat::shoot(fEnergyMin, fEnergyMax); // MeV
+  G4double Ekin = CLHEP::RandFlat::shoot(fConfig.energyMin, fConfig.energyMax); // MeV
   G4double X = CLHEP::RandFlat::shoot(-120., 120.); // mm
   G4double Y = CLHEP::RandFlat::shoot(-120., 120.); // mm
   G4double theta = asin(CLHEP::RandFlat::shoot());
   G4double phi = CLHEP::RandFlat::shoot(CLHEP::twopi);
 
-  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   analysisManager->FillNtupleIColumn(1, 0, anEvent->GetEventID());
   analysisManager->FillNtupleDColumn(1, 1, Ekin);
   analysisManager->FillNtupleDColumn(1, 2, X);
@@ -38,7 +43,6 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
   analysisManager->FillNtupleDColumn(1, 4, theta);
   analysisManager->FillNtupleDColumn(1, 5, phi);
 
-  fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticleEnergy(Ekin*MeV);
   fParticleGun->SetParticlePosition(G4ThreeVector(X*mm, Y*mm, -1.*mm));
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta) * cos(phi),

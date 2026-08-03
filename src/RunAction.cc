@@ -1,9 +1,12 @@
 #include "RunAction.hh"
 
-RunAction::RunAction(G4int runNumber)
-: fRunNumber(runNumber)
+#include <G4AnalysisManager.hh>
+
+RunAction::RunAction(const SimConfig& config)
+: fConfig(config)
 {
   G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+  analysisManager->SetNtupleMerging(true);
 
   analysisManager->CreateNtuple("energy_release", "Energy release in sensitive volumes");
   analysisManager->CreateNtupleIColumn("event_id");
@@ -38,13 +41,10 @@ RunAction::RunAction(G4int runNumber)
   analysisManager->FinishNtuple();
 }
 
-RunAction::~RunAction()
-{}
-
 void RunAction::BeginOfRunAction(const G4Run*)
 {
   G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-  std::string filename = "../data/output_" + std::to_string(fRunNumber) + ".hdf5";
+  std::string filename = "../data/output_" + std::to_string(fConfig.runNumber) + ".root";
   analysisManager->SetFileName(filename);
   analysisManager->OpenFile(filename);
 }

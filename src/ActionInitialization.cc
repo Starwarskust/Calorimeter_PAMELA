@@ -1,18 +1,21 @@
 #include "ActionInitialization.hh"
 
-ActionInitialization::ActionInitialization(G4int particlePDG, G4double energyMin, G4double energyMax, G4int runNumber)
-: fParticlePDG(particlePDG),
-  fEnergyMin(energyMin),
-  fEnergyMax(energyMax),
-  fRunNumber(runNumber)
+#include "PrimaryGeneratorAction.hh"
+#include "RunAction.hh"
+#include "SteppingAction.hh"
+
+ActionInitialization::ActionInitialization(const SimConfig& config)
+: fConfig(config)
 {}
 
-ActionInitialization::~ActionInitialization()
-{}
+void ActionInitialization::BuildForMaster() const
+{
+  SetUserAction(new RunAction(fConfig));
+}
 
 void ActionInitialization::Build() const
 {
-  SetUserAction(new PrimaryGeneratorAction(fParticlePDG, fEnergyMin, fEnergyMax));
-  SetUserAction(new RunAction(fRunNumber));
+  SetUserAction(new PrimaryGeneratorAction(fConfig));
+  SetUserAction(new RunAction(fConfig));
   SetUserAction(new SteppingAction());
 }
