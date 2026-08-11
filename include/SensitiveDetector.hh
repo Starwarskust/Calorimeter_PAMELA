@@ -8,11 +8,12 @@
 class SensitiveDetector : public G4VSensitiveDetector
 {
   public:
-    SensitiveDetector(G4String name);
-    ~SensitiveDetector();
-    G4bool ProcessHits(G4Step *step, G4TouchableHistory *history) override;
-    void EndOfEvent(G4HCofThisEvent *hitCollection) override;
+    SensitiveDetector(const G4String& name);
+    ~SensitiveDetector() override = default;
+
+  protected:
+    G4bool ProcessHits(G4Step* step, G4TouchableHistory* history) override;
 
   private:
-    G4AnalysisManager *fAnalysisManager = G4AnalysisManager::Instance();
+    G4AnalysisManager* fAnalysisManager = G4AnalysisManager::Instance();
 };

@@ -5,16 +5,14 @@
 RunAction::RunAction(const SimConfig& config)
 : fConfig(config)
 {
-  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   analysisManager->SetNtupleMerging(true);
 
   analysisManager->CreateNtuple("energy_release", "Energy release in sensitive volumes");
   analysisManager->CreateNtupleIColumn("event_id");
   analysisManager->CreateNtupleIColumn("n_layer");
   analysisManager->CreateNtupleIColumn("n_plane");
-  analysisManager->CreateNtupleIColumn("n_paddle");
   analysisManager->CreateNtupleIColumn("n_strip");
-  analysisManager->CreateNtupleIColumn("n_pad");
   analysisManager->CreateNtupleDColumn("energy_deposit");
   analysisManager->FinishNtuple();
 
@@ -43,15 +41,15 @@ RunAction::RunAction(const SimConfig& config)
 
 void RunAction::BeginOfRunAction(const G4Run*)
 {
-  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-  std::string filename = "../data/output_" + std::to_string(fConfig.runNumber) + ".root";
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  const std::string filename = "../data/output_" + std::to_string(fConfig.runNumber) + ".root";
   analysisManager->SetFileName(filename);
   analysisManager->OpenFile(filename);
 }
 
 void RunAction::EndOfRunAction(const G4Run*)
 {
-  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   analysisManager->Write();
   analysisManager->CloseFile();
 }

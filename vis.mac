@@ -14,8 +14,7 @@
 
 # Visibility
 /vis/geometry/set/visibility world 2 false
-/vis/geometry/set/visibility plane 1 false
-/vis/geometry/set/visibility pad 0 false
+/vis/geometry/set/visibility plane 0 false
 
 # /vis/filtering/trajectories/create/particleFilter
 # /vis/filtering/trajectories/particleFilter-0/add gamma
