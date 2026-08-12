@@ -16,8 +16,14 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 # Visualization option
 option(USE_VISUALIZATION "Use visualization code" OFF)
 if (USE_VISUALIZATION)
-  add_definitions(-DUSE_VISUALIZATION)
+  add_compile_definitions(USE_VISUALIZATION)
   file(COPY ${PROJECT_SOURCE_DIR}/vis.mac DESTINATION ${PROJECT_BINARY_DIR})
+endif()
+
+# Saving tracks option
+option(SAVE_TRACKS "Save track information" OFF)
+if(SAVE_TRACKS)
+  add_compile_definitions(SAVE_TRACKS)
 endif()
 
 # Add the executable, and link it to the Geant4 libraries

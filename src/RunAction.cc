@@ -27,6 +27,7 @@ RunAction::RunAction(const SimConfig& config)
   analysisManager->CreateNtupleSColumn("last_process");
   analysisManager->FinishNtuple();
 
+#ifdef SAVE_TRACKS
   analysisManager->CreateNtuple("track_info", "Tracks of all particles");
   analysisManager->CreateNtupleIColumn("event_id");
   analysisManager->CreateNtupleIColumn("track_id");
@@ -37,6 +38,7 @@ RunAction::RunAction(const SimConfig& config)
   analysisManager->CreateNtupleDColumn("energy");
   analysisManager->CreateNtupleDColumn("energy_deposit");
   analysisManager->FinishNtuple();
+#endif
 }
 
 void RunAction::BeginOfRunAction(const G4Run*)
