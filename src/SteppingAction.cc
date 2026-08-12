@@ -1,26 +1,13 @@
 #include "SteppingAction.hh"
 
-SteppingAction::SteppingAction()
-{}
+#include <G4EventManager.hh>
+#include <G4Step.hh>
 
-SteppingAction::~SteppingAction()
-{}
-
-void SteppingAction::UserSteppingAction(const G4Step *step)
+void SteppingAction::UserSteppingAction(const G4Step* step)
 {
-  if (step->GetTrack()->GetTrackID() == 1 && step->GetTrack()->GetTrackStatus() == fStopAndKill) {
-    fAnalysisManager->FillNtupleDColumn(1, 6, step->GetPostStepPoint()->GetPosition().z());
-    if (step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessType() != fGeneral) { // NoProcess
-      fAnalysisManager->FillNtupleSColumn(1, 7, step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName());
-    } else {
-      fAnalysisManager->FillNtupleSColumn(1, 7, step->GetPreStepPoint()->GetProcessDefinedStep()->GetProcessName());
-    }
-    fAnalysisManager->AddNtupleRow(1);
-  }
-
   if (step->GetTrack()->GetParticleDefinition()->GetPDGCharge() != 0 &&
       (step->GetTrack()->GetTrackID() == 1 || step->GetTrack()->GetParentID() == 1)) {
-    G4int eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
+    const G4int eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
     fAnalysisManager->FillNtupleIColumn(2, 0, eventID);
     fAnalysisManager->FillNtupleIColumn(2, 1, step->GetTrack()->GetTrackID());
     fAnalysisManager->FillNtupleIColumn(2, 2, step->GetTrack()->GetParticleDefinition()->GetPDGEncoding());
