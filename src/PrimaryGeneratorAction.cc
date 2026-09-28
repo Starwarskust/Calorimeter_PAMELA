@@ -29,7 +29,12 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-  G4double Ekin = CLHEP::RandFlat::shoot(fConfig.energyMin, fConfig.energyMax); // MeV
+  // G4double Ekin = CLHEP::RandFlat::shoot(fConfig.energyMin, fConfig.energyMax); // MeV
+  G4double logEkin = CLHEP::RandFlat::shoot(
+    std::log(fConfig.energyMin),
+    std::log(fConfig.energyMax)
+  );
+  G4double Ekin = std::exp(logEkin); // MeV
   G4double X = CLHEP::RandFlat::shoot(-120., 120.); // mm
   G4double Y = CLHEP::RandFlat::shoot(-120., 120.); // mm
   G4double theta = asin(CLHEP::RandFlat::shoot());
