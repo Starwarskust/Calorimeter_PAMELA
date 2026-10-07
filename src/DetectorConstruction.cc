@@ -90,7 +90,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   sizeZ = layer_thickness;
   G4Box* layer_svol = new G4Box("layer", sizeX / 2, sizeY / 2, sizeZ / 2);
 
-  G4Material* layer_mat = nist->FindOrBuildMaterial("G4_C");
+  G4Material* layer_mat = nist->FindOrBuildMaterial("G4_N");
   G4LogicalVolume* layer_lvol = new G4LogicalVolume(layer_svol, layer_mat, "layer");
 
   new G4PVReplica("layer",              // name
